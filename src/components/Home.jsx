@@ -1,18 +1,41 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Nav from "./Nav";
-import { Link } from "react-router-dom";
+import axios from "../utils/axios";
+import { Link, useLocation } from "react-router-dom";
 import { ContextProdut } from "../utils/Context";
 import Loading from "../utils/Loading";
 
 const Home = () => {
   const [products] = useContext(ContextProdut);
-  console.log(products)
+  // console.log(products)
+
   // const {title,price,rating,image,id,description}=products
+  const {search}=useLocation();
+  console.log(search)
+  const category=decodeURIComponent(search.split("=")[1])
+  console.log(category)
+  const [filter,setFilter]=useState(null);
+
+  console.log(filter)
+  const getProductsCategory=async()=>{
+    try {
+      const {data}=await axios.get(`/products/category/${category}`);
+      setFilter(data);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(()=>{
+    if(!filter || category=="undefined")setFilter(products);
+    if(category != "undefined") getProductsCategory()
+  },[category,products])
   return products ? (
     <>
+        
       <Nav />
-      <div className="w-[80%] overflow-y-scroll no-scrollbar h-full flex justify-start px-5 gap-x-5 gap-y-5 flex-wrap bg-rose-400 pt-5">
-        {products.map((i, ind) => (
+      <div className="w-[80%] overflow-y-scroll no-scrollbar h-full flex justify-evenly px-5 gap-x-5 gap-y-5 flex-wrap bg-rose-400 pt-5">
+        {filter&&filter.map((i, ind) => (
           <Link key={ind} to={`/details/${i.id}`} className="bg-white  rounded-lg overflow-hidden shadow-lg flex min-h-[25%] min-w-[30%] max-w-md ">
             <div className="flex  md:flex ">
               {/* <!-- Image --> */}

@@ -21,9 +21,9 @@ const Details = () => {
 
   return (productData?
     <>
-      <div className="w-[80%] h-full flex mx-auto">
+      <div className="w-[80%] h-full mt-20 flex mx-auto">
         <img
-          className="h-full w-1/3 my-2 mx-3 rounded-lg object-contain object-center hover:scale-125"
+          className="h-auto w-1/3 my-2 mx-3 rounded-lg object-contain object-center hover:scale-125"
           src={productData.image}
           alt=""
         />

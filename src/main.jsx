@@ -8,9 +8,9 @@ import Context from "./utils/Context.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Context>
     <BrowserRouter>
-      <React.StrictMode>
+      {/* <React.StrictMode> */}
         <App />
-      </React.StrictMode>
+      {/* </React.StrictMode> */}
     </BrowserRouter>
   </Context>
 );
